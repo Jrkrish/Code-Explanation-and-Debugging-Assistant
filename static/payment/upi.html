@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .payment-summary {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .upi-details {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .upi-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .upi-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .timer {
+            font-size: 25px;
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>UPI Payment</h1>
+        <p>Proceed with your UPI payment for the selected plan.</p>
+    </div>
+
+    <div class="container">
+        <div class="payment-summary">
+            <p><strong>Plan Name:</strong> <span id="planName"></span></p>
+            <p><strong>Plan Price:</strong> <span id="planPrice"></span></p>
+            <p class="payment-method">Payment Method: UPI</p>
+        </div>
+
+        <div class="upi-details">
+            <p><strong>UPI ID:</strong> <span id="upiId">yourname@bank</span></p>
+            <p>Make the payment of <strong><span id="paymentAmount"></span></strong> by scanning the QR code or via your UPI app.</p>
+            <p>After making the payment, click on the button below to confirm.</p>
+
+            <button class="upi-button" onclick="confirmPayment()">Confirm Payment</button>
+        </div>
+
+        <div class="timer" id="timer">Time Remaining: 10:00</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the data passed from the previous page (pricing page)
+            const urlParams = new URLSearchParams(window.location.search);
+            const planName = urlParams.get('planName') || 'Basic Plan';
+            const planPrice = urlParams.get('planPrice') || '19';
+            
+            // Set the values dynamically
+            document.getElementById('planName').textContent = planName;
+            document.getElementById('planPrice').textContent = '$' + planPrice + '/month';
+            document.getElementById('paymentAmount').textContent = '$' + planPrice;
+            
+            // Timer countdown (e.g., 10 minutes)
+            let timeLeft = 600; // 10 minutes in seconds
+            const timer = document.getElementById('timer');
+            const interval = setInterval(function () {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timer.textContent = `Time Remaining: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                timeLeft--;
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    alert("Payment time expired!");
+                    window.location.href = "payment-expired.html"; // Redirect after timeout
+                }
+            }, 1000);
+        });
+
+        function confirmPayment() {
+            // Simulate payment confirmation
+            alert('Payment Confirmed! Thank you for your purchase.');
+            window.location.href = "thank.html"; // Redirect to a Thank You page or confirmation page
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Codegenius Community Forum - Rules and Guidelines">
+    <title>Codegenius Community Forum - Rules & Guidelines</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f9;
+            --text-color: #2c3e50;
+            --code-background: #f8f9fa;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .code-block {
+            background-color: var(--code-background);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-left: 5px solid var(--primary-color);
+            position: relative;
+        }
+
+        .tips {
+            background-color: #e6f3ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .feature-list {
+            list-style-type: none;
+        }
+
+        .feature-list li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            margin-right: 10px;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .footer {
+            background: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                padding: 40px 15px;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-container">
+            <span class="logo-text">Codegenius</span>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Codegenius Community Forum</h1>
+        <p>Community Rules and Guidelines</p>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2>1. Be Respectful and Kind</h2>
+            <ul class="feature-list">
+                <li>Treat all members of the community with respect.</li>
+                <li>Avoid harassment, hate speech, or discriminatory comments.</li>
+                <li>Disagreements are natural, but please remain civil and focus on the issue, not the person.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>2. Stay On-Topic</h2>
+            <ul class="feature-list">
+                <li>Keep your posts relevant to the forum or thread topic.</li>
+                <li>Off-topic discussions should be moved to designated areas, if available.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>3. No Spam or Self-Promotion</h2>
+            <ul class="feature-list">
+                <li>Do not post irrelevant advertisements or promotional content.</li>
+                <li>Self-promotion is allowed only in designated sections.</li>
+            </ul>
+        </section>
+
+        <!-- Additional sections follow the same pattern -->
+
+        <section class="section">
+            <h2>Consequences for Violating Rules</h2>
+            <div class="tips">
+                <strong>Potential Actions:</strong>
+                <ul>
+                    <li> Warning</li>
+                    <li> Temporary Suspension</li>
+                    <li> Permanent Ban</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Codegenius Community Forum. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        // Optional interactive elements
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mousemove', (e) => {
+                const rect = section.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                section.style.setProperty('--mouse-x', `${x}px`);
+                section.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>

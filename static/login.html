@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius AI | Log In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #20bf55 0%, #01baef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .login-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .login-header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .login-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .login-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #2980b9;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .social-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-btn {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            color: var(--text-color);
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                width: 90%;
+                margin: 30px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Navbar (if needed) can go here -->
+    </header>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Welcome Back to CodeGenius</h1>
+            <p>Log in to continue your learning journey!</p>
+        </div>
+        
+        <!-- Error message div for displaying errors -->
+        <div id="error-message" style="color: red; display: none; text-align: center; margin-bottom: 20px;"></div>
+
+        <form class="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="login-btn">Log In</button>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign Up</a>
+            </div>
+
+            <div class="social-login">
+                <p>Or log in with:</p>
+                <a href="" class="social-btn"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-microsoft"></i></a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+// Import necessary modules from Firebase SDK v9+
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyCPDH1WhDzfNyOtsZ0zGTmXiGEP-S9qMKQ",
+    authDomain: "code-debugging-46522.firebaseapp.com",
+    databaseURL: "https://code-debugging-46522-default-rtdb.firebaseio.com",
+    projectId: "code-debugging-46522",
+    storageBucket: "code-debugging-46522.appspot.com",
+    messagingSenderId: "492492216062",
+    appId: "1:492492216062:web:66114fd0dec7ab88e7b7af",
+    measurementId: "G-PZM65D7SPC"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Check if the user is already logged in
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        console.log("User is logged in:", user);
+        // Redirect to index page if logged in
+        window.location.href = '/';  // Adjust path to your home page
+    }
+});
+
+        // Handle form submission for login
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email.trim() === '' || password.trim() === '') {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            console.log('Attempting to log in with', email, password);
+
+            // Sign in the user with Firebase Auth
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log('User signed in successfully:', user);
+
+                    // Redirect to index page after successful login
+                    window.location.href = '/';  // Adjust the path to the home page
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    const errorDiv = document.getElementById('error-message');
+                    errorDiv.style.display = 'block';
+                    errorDiv.innerHTML = `Error: ${errorMessage}`;
+                });
+        });
+    </script>
+</body>
+</html>

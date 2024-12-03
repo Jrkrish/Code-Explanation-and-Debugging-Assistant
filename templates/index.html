@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius AI | Smart Code Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-container">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <h1 class="logo-text">CodeGenius</h1> <!-- Using <h1> for main title -->
+                    <span class="logo-badge">AI</span>
+                </div>
+                
+                <div class="nav-links">
+                    <a href="#" class="active">Code Analysis</a>
+                    <a href="static/doc.html">Documentation</a>
+                    <a href="static/examples.html">Examples</a>
+                    <a href="static/links/about.html">About</a>
+                </div><div class="nav-actions"> 
+                    <button id="themeToggle" class="secondary-button">
+                        <i class="fas fa-moon"></i><span>Dark Mode</span>
+                    </button>
+                    <button class="primary-button nav-button" onclick="window.location.href='static/login.html';">Log In</button>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Understand Code Like Never Before</h1>
+            <p>Advanced AI-powered code analysis and debugging assistant</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50M+</span>
+                    <span class="stat-label">Lines Analyzed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100K+</span>
+                    <span class="stat-label">Developers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <section class="features-bar">
+            <div class="feature">
+                <i class="fas fa-bolt"></i><span>Real-time Analysis</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-code"></i><span>Multi-language Support</span>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i><span>Secure Processing</span>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <!-- Code Input Section -->
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-code"></i><h2>Your Code</h2>
+                    </div>
+                </div>
+                <div class="code-editor">
+                    <textarea id="codeInput" placeholder="# Paste your code here..."></textarea>
+                </div>
+                <div class="panel-footer">
+                    <button id="analyzeButton" class="primary-button">
+                        <i class="fas fa-play"></i><span>Analyze Code</span>
+                    </button>
+                    <button id="copyButton" class="secondary-button">
+                        <i class="fas fa-copy"></i><span>Copy</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="output-panel">
+                <div class="panel-header">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="explain">
+                            <i class="fas fa-book"></i>Explanation
+                        </button>
+                        <button class="tab-button" data-tab="debug">
+                            <i class="fas fa-bug"></i>Debug
+                        </button>
+                        <button class="tab-button" data-tab="optimize">
+                            <i class="fas fa-tachometer-alt"></i>Optimize
+                        </button>
+                    </div>
+                </div>
+                <div class="output-content">
+                    <div id="outputDisplay" class="analysis-output">
+                        <div class="empty-state">
+                            <i class="fas fa-code"></i>
+                            <h3>Ready to Analyze</h3>
+                            <p>Enter your code to get started with AI-powered analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-brain logo-icon"></i><span> CodeGenius AI</span>
+                </div>
+                <p>Making code understanding easier with AI</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="static/doc.html">Documentation</a></li>
+                    <li><a href="static/price.html">Pricing</a></li>
+                    <li><a href="static/rg.html">Rules and Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="static/blog.html">Blog</a></li>
+                    <li><a href="static/tutorials.html">Tutorials</a></li>
+                    <li><a href="static/support.html">Support</a></li>
+                    <li><a href="static/comm.html">Community</a></li>
+                </ul>
+            </div>
+            <div id="connectModal" class="modal">
+                <div class="modal-content">
+                    <h4>Connect with Us</h4>
+                    <ul>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Email: codegene@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CodeGenius AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

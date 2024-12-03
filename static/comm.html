@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius Community Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #20bf55 0%, #01baef 100%);
+            --card-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+        }
+
+        /* Post Form Styles */
+        .post-form {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .post-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 150px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .post-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .post-form .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .post-form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .post-form button:hover {
+            background: #2980b9;
+        }
+
+        .post-form button i {
+            margin-right: 10px;
+        }
+
+        .post-form .char-count {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Forum Posts Styles */
+        .forum-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .post-card-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-card-content {
+            padding: 20px;
+        }
+
+        .post-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .post-interactions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .post-interactions button {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .post-interactions button:hover {
+            color: var(--primary-color);
+        }
+
+        /* Empty State Styles */
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .forum-posts {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none; /* Placeholder for mobile menu */
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .post-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <i class="fas fa-users logo-icon"></i>
+                <a href="#" class="logo-text">CodeGenius Community</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Community Forum</h1>
+        <p>Connect, Share, and Grow Together</p>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Post Creation Form -->
+        <div class="post-form">
+            <textarea 
+                id="postContent" 
+                placeholder="Share your thoughts, ask a question, or start a discussion..."
+                maxlength="1000"
+            ></textarea>
+            <div class="form-actions">
+                <span class="char-count">0 / 1000</span>
+                <button id="submitPostBtn">
+                    <i class="fas fa-paper-plane"></i> Post
+                </button>
+            </div>
+        </div>
+
+        <!-- Forum Posts Section -->
+        <div id="forumPosts" class="forum-posts">
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-comment-dots"></i>
+                <h3>No posts yet. Be the first to start a conversation!</h3>
+                <p>Share your thoughts, ask a question, or start a discussion.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Character count for post textarea
+        const postContent = document.getElementById('postContent');
+        const charCount = document.querySelector('.char-count');
+
+        postContent.addEventListener('input', function() {
+            charCount.textContent = `${this.value.length} / 1000`;
+            
+            // Optional: Change color when approaching limit
+            if (this.value.length > 900) {
+                charCount.style.color = '#e74c3c';
+            } else {
+                charCount.style.color = '#888';
+            }
+        });
+
+        // Load posts and comments from localStorage on page load
+        document.addEventListener('DOMContentLoaded', loadPosts);
+
+        // Submit a new post
+        document.getElementById('submitPostBtn').addEventListener('click', function() {
+            const postContent = document.getElementById('postContent');
+            const content = postContent.value.trim();
+
+            if (content && content.length <= 1000) {
+                const newPost = {
+                    id: new Date().getTime(),
+                    content: content,
+                    comments: [],
+                    likes: 0,
+                    author: 'Anonymous', // TODO: Replace with actual user system
+                    timestamp: new Date().toLocaleString()
+                };
+
+                const posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts.unshift(newPost); // Add to the beginning of the array
+                localStorage.setItem('posts', JSON.stringify(posts));
+
+                postContent.value = ''; // Clear input
+                charCount.textContent = '0 / 1000';
+                loadPosts(); // Reload posts
+            } else {
+                alert('Please enter a post between 1 and 1000 characters.');
+            }
+        });
+
+        // Load posts and render them
+        function loadPosts() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const forumPosts = document.getElementById('forumPosts');
+            const emptyState = document.getElementById('emptyState');
+
+            forumPosts.innerHTML = ''; // Clear existing posts
+
+            if (posts.length === 0) {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+                posts.forEach(post => {
+                    addPostToDOM(post);
+                });
+            }
+        }
+
+        // Add a post to the DOM
+        function addPostToDOM(post) {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post-card');
+            postElement.innerHTML = `
+                <div class="post-card-header">
+                    <span>Post #${post.id}</span>
+                    <span>${post.timestamp}</span>
+                </div>
+                <div class="post-card-content">
+                    <p>${post.content}</p>
+                </div>
+                <div class="post-card-footer">
+                    <div class="post-interactions">
+                        <button onclick="likePost(${post.id})">
+                            <i class="fas fa-heart"></i> ${post.likes || 0}
+                        </button>
+                        <button onclick="toggleComments(${post.id})">
+                            <i class="fas fa-comment"></i> ${post.comments.length}
+                        </button>
+                    </div>
+                    <span>By ${post.author}</span>
+                </div>
+                <div class="comment-section" id="commentSection-${post.id}" style="display:none;">
+                    <div class="comment-list" id="commentList-${post.id}">
+                        ${post.comments.map(comment => `
+                            <div class="comment-item">${comment}</div>
+                        `).join('')}
+                    </div>
+                    <div class="comment-form">
+                        <textarea 
+                            id="commentInput-${post.id}" 
+                            placeholder="Add a comment..."
+                        ></textarea>
+                        <button onclick="submitComment(${post.id})">Comment</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('forumPosts').appendChild(postElement);
+        }
+
+        // Like a post
+        function likePost(postId) {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const postIndex = posts.findIndex(post => post.id === postId);
+            
+            if (postIndex !== -1) {
+                posts[postIndex].likes = (posts[postIndex].likes || 0) + 1;
+                localStorage.setItem('posts', JSON.stringify(posts));
+                loadPosts();
+            }
+        }
+
+        // Toggle comments visibility
+        function toggleComments(postId) {
+            const commentSection = document.getElementById(`commentSection-${postId}`);
+            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Submit a comment
+        function submitComment(postId) {
+            const commentInput = document.getElementById(`commentInput-${postId}`);
+            const commentText = commentInput.value.trim();
+
+            if (commentText) {
+                const posts = JSON.parse(localStorage.getItem('posts')) || [];
+                const postIndex = posts.findIndex(post => post.id === postId);
+
+                if (postIndex !== -1) {
+                    posts[postIndex].comments.push(commentText);
+                    localStorage.setItem('posts', JSON.stringify(posts));
+                    commentInput.value = ''; // Clear input
+                    loadPosts(); // Reload posts and comments
+                }
+            }
+        }
+    </script>
+</body>
+</html>

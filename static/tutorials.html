@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius AI | Tutorials</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #20bf55 0%, #01baef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 40px;
+        }
+
+        .tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tutorial-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .tutorial-card-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tutorial-card-content {
+            padding: 20px;
+        }
+
+        .tutorial-progress {
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .tutorial-progress-bar {
+            height: 10px;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .start-tutorial-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .start-tutorial-btn:hover {
+            background: #2980b9;
+        }
+
+        .difficulty-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        .tutorial-details {
+            display: none;
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .tutorials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-container">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <a href="#" class="logo-text">CodeGenius</a>
+                </div>
+                <div class="nav-links">
+                    <a href="examples.html">Examples</a>
+                    <a href="#" class="active">Tutorials</a>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="header">
+        <h1>Interactive Code Tutorials</h1>
+        <p>Learn and improve your coding skills with guided, AI-powered tutorials</p>
+    </div>
+
+    <div class="tutorials-grid">
+        <!-- Python Basics Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>Python for Beginners</h2>
+                <span class="difficulty-tag">Beginner</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Learn the fundamentals of Python programming, from basic syntax to object-oriented programming.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="pythonProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('python')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="pythonTutorialDetails" class="tutorial-details">
+                    <h3>Python Basics Tutorial Outline</h3>
+                    <ol>
+                        <li>Introduction to Python</li>
+                        <li>Variables and Data Types</li>
+                        <li>Control Structures</li>
+                        <li>Functions and Modules</li>
+                        <li>Object-Oriented Programming</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript Fundamentals Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>JavaScript Fundamentals</h2>
+                <span class="difficulty-tag">Beginner</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Master the core concepts of JavaScript and build interactive web applications.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="jsProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('js')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="jsTutorialDetails" class="tutorial-details">
+                    <h3>JavaScript Tutorial Outline</h3>
+                    <ol>
+                        <li>JavaScript Basics</li>
+                        <li>DOM Manipulation</li>
+                        <li>Events and Interactivity</li>
+                        <li>Asynchronous Programming</li>
+                        <li>ES6+ Features</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- React Development Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>React Web Development</h2>
+                <span class="difficulty-tag">Intermediate</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Learn to build modern web applications using React and its powerful ecosystem.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="reactProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('react')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="reactTutorialDetails" class="tutorial-details">
+                    <h3>React Development Tutorial Outline</h3>
+                    <ol>
+                        <li>React Fundamentals</li>
+                        <li>Components and Props</li>
+                        <li>State and Hooks</li>
+                        <li>Routing and Navigation</li>
+                        <li>State Management</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Machine Learning Basics Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>Machine Learning Basics</h2>
+                <span class="difficulty-tag">Advanced</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Introduction to machine learning concepts and practical applications using Python.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="mlProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('ml')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="mlTutorialDetails" class="tutorial-details">
+                    <h3>Machine Learning Tutorial Outline</h3>
+                    <ol>
+                        <li>Fundamental ML Concepts</li>
+                        <li>Data Preprocessing</li>
+                        <li>Supervised Learning</li>
+                        <li>Unsupervised Learning</li>
+                        <li>Model Evaluation</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cybersecurity Fundamentals Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>Cybersecurity Fundamentals</h2>
+                <span class="difficulty-tag">Intermediate</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Learn essential cybersecurity principles and practical defense strategies.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="securityProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('security')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="securityTutorialDetails" class="tutorial-details">
+                    <h3>Cybersecurity Tutorial Outline</h3>
+                    <ol>
+                        <li>Network Security Basics</li>
+                        <li>Encryption Techniques</li>
+                        <li>Threat Detection</li>
+                        <li>Penetration Testing</li>
+                        <li>Security Best Practices</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cloud Computing Tutorial -->
+        <div class="tutorial-card">
+            <div class="tutorial-card-header">
+                <h2>Cloud Computing Essentials</h2>
+                <span class="difficulty-tag">Intermediate</span>
+            </div>
+            <div class="tutorial-card-content">
+                <p>Explore cloud computing platforms and learn deployment strategies.</p>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar" id="cloudProgressBar"></div>
+                </div>
+                <button class="start-tutorial-btn" onclick="toggleDetails('cloud')">
+                    <i class="fas fa-play-circle"></i> Start Tutorial
+                </button>
+                <div id="cloudTutorialDetails" class="tutorial-details">
+                    <h3>Cloud Computing Tutorial Outline</h3>
+                    <ol>
+                        <li>Cloud Fundamentals</li>
+                        <li>AWS Services</li>
+                        <li>Azure Basics</li>
+                        <li>Cloud Security</li>
+                        <li>Deployment Strategies</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(tutorial) {
+            const details = document.getElementById(`${tutorial}TutorialDetails`);
+            const progressBar = document.getElementById(`${tutorial}ProgressBar`);
+
+            if (details.style.display === 'block') {
+                details.style.display = 'none';
+                progressBar.style.width = '0%';
+            } else {
+                details.style.display = 'block';
+                progressBar.style.width = '100%';
+            }
+        }
+    </script>
+</body>
+</html>

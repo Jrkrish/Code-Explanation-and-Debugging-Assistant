@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Payment</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa, #e6ebf1); /* Soft gradient */
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --button-hover: #3b82f6;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-gradient);
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 500px;
+            padding: 30px;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .spinner-container {
+            padding: 25px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary-color) 0deg 180deg, #f3f3f3 0deg 360deg);
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .spinner.complete {
+            animation: none;
+            background: conic-gradient(var(--primary-color) 0deg 360deg); /* Full blue circle */
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: white;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .wait-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 16px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 16px;
+        }
+
+        .thank-you-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .thank-you-button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .footer-message {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Processing Your Payment</h1>
+    </div>
+
+    <div class="container">
+        <div class="spinner-container">
+            <!-- Loading Spinner -->
+            <div id="spinner" class="spinner">
+                <div id="checkmark" class="checkmark">✔</div>
+            </div>
+
+            <div class="message wait-message">
+                Your payment is being processed. Please wait while we confirm your transaction.
+            </div>
+        </div>
+
+        <!-- Transaction status message -->
+        <div id="transaction-status" class="message"></div>
+
+
+        <div class="footer-message">
+            If you encounter any issues, please contact our support team.
+        </div>
+    </div>
+
+    <script>
+        // Simulate the transaction processing result
+        setTimeout(function() {
+            const spinner = document.getElementById("spinner");
+            const checkmark = document.getElementById("checkmark");
+            const statusElement = document.getElementById("transaction-status");
+            
+            // Simulate success or failure randomly
+            const isPaymentSuccessful = Math.random() > 0.2;  // 80% chance of success
+            
+            if (isPaymentSuccessful) {
+                // Payment was successful: Stop the spinner, turn it blue, and show checkmark
+                spinner.classList.add("complete");  // Apply the complete class to stop the rotation and turn the spinner blue
+                checkmark.style.display = "block";  // Show the checkmark inside the spinner
+                statusElement.innerHTML = "<span class='success-message'>Your payment has been successfully processed!</span>";
+            } else {
+                // Payment failed: Keep the spinner rotating and show error message
+                statusElement.innerHTML = "<span class='error-message'>There was an issue processing your payment. Please try again.</span>";
+            }
+        }, 3000); // Simulate a 3-second delay for processing
+    </script>
+
+</body>
+</html>

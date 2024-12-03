@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support | CodeGenius AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1d4ed8; /* Adjusted primary color for dark mode */
+            --primary-hover: #2563eb;  /* Updated primary blue color */
+            --accent-color: #ff5733;   /* Accent color */
+            --background-color: #f4f4f9;
+            --white-color: #ffffff;
+            --text-color: #333;
+            --success-color: #4CAF50;
+            --error-color: #f44336;
+        }
+ 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: var(--primary-color);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            color: var(--white-color);
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Support Section */
+        .support-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .support-container {
+            background-color: var(--white-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            background-color: #f9f9f9;
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateY(-5px); /* Hover effect for better interaction */
+            background-color: rgba(255, 87, 51, 0.1); /* Subtle hover color */
+        }
+
+        .faq-item h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .faq-item .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-item p {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .faq-item.active p {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        /* Form Styles */
+        .question-form {
+            background-color: #f1f1f6;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .question-form input, 
+        .question-form textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .question-form input:focus, 
+        .question-form textarea:focus {
+            border-color: var(--accent-color);
+        }
+
+        .form-group .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: var(--error-color);
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .question-form button {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .question-form button:hover {
+            background-color: #e64a28;
+            transform: translateY(-3px);
+        }
+
+        .question-form button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Submission Result */
+        #submission-result {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            font-size: 1rem;
+        }
+
+        .success-message {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--success-color);
+        }
+
+        .error-message {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--error-color);
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .support-section {
+                margin: 20px 10px;
+            }
+
+            .support-container {
+                padding: 15px;
+            }
+
+            .faq-item h3 {
+                font-size: 1rem;
+            }
+
+            .question-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <i class="fas fa-brain logo-icon"></i>
+                <span class="logo-text">CodeGenius</span>
+                <span class="logo-badge">AI</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="support-section">
+        <div class="support-container">
+            <h1>Support Center</h1>
+
+            <h2>Frequently Asked Questions</h2>
+            <div id="faq-list">
+                <div class="faq-item">
+                    <h3>
+                        How do I use CodeGenius AI?
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </h3>
+                    <p>Simply paste your code into the code input section, select the analysis type, and click "Analyze Code". Our AI will provide insights and recommendations to improve your code quality.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>
+                        What languages does CodeGenius AI support?
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </h3>
+                    <p>We support a wide range of programming languages including Python, JavaScript, Java, C++, Ruby, Go, and more. For the most up-to-date list of supported languages, check our documentation.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>
+                        Is my code private and secure?
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </h3>
+                    <p>Absolutely! We use advanced encryption and follow strict data protection protocols. Your code is anonymized, processed securely, and never stored without your explicit consent.</p>
+                </div>
+            </div>
+
+            <div class="question-form">
+                <form id="support-form">
+                    <div class="form-group">
+                        <input type="text" id="user-name" placeholder="Your Name" required>
+                        <div class="error-message">Please enter your name</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="user-email" placeholder="Your Email" required>
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="user-question" rows="4" placeholder="Describe your question or issue" required></textarea>
+                        <div class="error-message">Please describe your question</div>
+                    </div>
+                    <button type="submit" id="submit-button" disabled>Submit</button>
+                </form>
+            </div>
+
+            <div id="submission-result" class="success-message">
+                Thank you! Your question has been submitted.
+            </div>
+            <div id="submission-result" class="error-message">
+                Oops! There was an error submitting your question. Please try again.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    item.classList.toggle('active');
+                });
+            });
+
+            const form = document.getElementById('support-form');
+            const submitButton = document.getElementById('submit-button');
+            form.addEventListener('input', () => {
+                const allFieldsFilled = [...form.querySelectorAll('input, textarea')].every(input => input.value.trim() !== "");
+                submitButton.disabled = !allFieldsFilled;
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const resultDiv = document.getElementById('submission-result');
+                resultDiv.classList.add('success-message');
+                resultDiv.textContent = "Your question has been submitted. We'll get back to you shortly!";
+                resultDiv.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

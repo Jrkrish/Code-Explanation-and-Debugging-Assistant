@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-database-compat.js"></script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius AI | Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #20bf55 0%, #01baef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .signup-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .signup-header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .signup-form {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .signup-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background: #2980b9;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .social-signup {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-btn {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            background: #f1f1f1;
+            color: var(--text-color);
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .signup-container {
+                width: 90%;
+                margin: 30px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-container">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <a href="#" class="logo-text">CodeGenius</a>
+                </div>
+                <div class="nav-links">
+                    <a href="examples.html">Examples</a>
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="#">Documentation</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Your CodeGenius Account</h1>
+            <p>Start your learning journey today!</p>
+        </div>
+        <form class="signup-form">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a strong password">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+            </div>
+            <button type="submit" class="signup-btn">Sign Up</button>
+            
+            <div class="login-link">
+                Already have an account? <a href="#">Log In</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPDH1WhDzfNyOtsZ0zGTmXiGEP-S9qMKQ",
+            authDomain: "code-debugging-46522.firebaseapp.com",
+            databaseURL: "https://code-debugging-46522-default-rtdb.firebaseio.com",
+            projectId: "code-debugging-46522",
+            storageBucket: "code-debugging-46522.appspot.com",
+            messagingSenderId: "492492216062",
+            appId: "1:492492216062:web:66114fd0dec7ab88e7b7af",
+            measurementId: "G-PZM65D7SPC"
+        };
+        const app = firebase.initializeApp(firebaseConfig); // Initialization
+const auth = firebase.auth();
+const database = firebase.database();
+
+
+        // Handle form submission
+        document.querySelector('.signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+        
+            // Basic validation to ensure passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+        
+            // Create user with Firebase Auth
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("User created successfully: ", user.uid);
+        
+                    // Save user data to Realtime Database
+                    return database.ref('users/' + user.uid).set({
+                        fullName: fullName,
+                        email: email
+                    });
+                })
+                .then(() => {
+                    console.log("User data saved to database");
+                    alert("User registered successfully!");
+                    // Redirect to login or dashboard (optional)
+                    window.location.href = "login.html";
+                })
+                .catch((error) => {
+                    console.error("Error during registration: ", error);
+                    alert("Error: " + error.message);
+                });
+        });
+            </script>
+</body>
+</html>

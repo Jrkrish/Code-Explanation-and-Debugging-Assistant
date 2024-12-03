@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeGenius | Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --background-color: #f4f6f7;
+            --text-color: #2c3e50;
+            --gradient-primary: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --gradient-secondary: linear-gradient(135deg, #20bf55 0%, #01baef 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .logo-text {
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 20px;
+        }
+
+        .nav-links a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-bottom: 40px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-card-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .blog-card-content {
+            padding: 20px;
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .category-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+
+        .read-more-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            padding-top: 50px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 70%;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: black;
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-container">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <a href="#" class="logo-text">CodeGenius</a>
+                </div>
+                <div class="nav-links">
+                    <a href="tutorials.html">Tutorials</a>
+                    <a href="blog.html" class="active">Blog</a>
+                    <a href="doc.html">Documentation</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="header">
+        <h1>CodeGenius Blog</h1>
+        <p>Insights, Tutorials, and Tech Explorations</p>
+    </div>
+
+    <div class="blog-grid">
+        <!-- AI Debugging Article -->
+        <div class="blog-card" data-article="ai-debugging">
+            <div class="blog-card-header">
+                <h2>AI Debugging Techniques</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Explore revolutionary AI-powered debugging strategies that transform how developers identify and resolve code issues.</p>
+                <div class="category-tags">
+                    <span class="category-tag">Debugging</span>
+                    <span class="category-tag">AI</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+
+        <!-- Code Analysis Article -->
+        <div class="blog-card" data-article="code-analysis">
+            <div class="blog-card-header">
+                <h2>Advanced Code Analysis</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Deep dive into cutting-edge techniques for comprehensive code analysis using machine learning and intelligent algorithms.</p>
+                <div class="category-tags">
+                    <span class="category-tag">Code Analysis</span>
+                    <span class="category-tag">Machine Learning</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+
+        <!-- Software Engineering Article -->
+        <div class="blog-card" data-article="software-engineering">
+            <div class="blog-card-header">
+                <h2>Future of Software Engineering</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Discover how artificial intelligence is reshaping software development, from automated coding to intelligent project management.</p>
+                <div class="category-tags">
+                    <span class="category-tag">AI</span>
+                    <span class="category-tag">Software Engineering</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+
+        <!-- Cybersecurity Article -->
+        <div class="blog-card" data-article="cybersecurity">
+            <div class="blog-card-header">
+                <h2>AI in Cybersecurity</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Uncover how artificial intelligence is transforming cybersecurity, from threat detection to predictive security measures.</p>
+                <div class="category-tags">
+                    <span class="category-tag">Cybersecurity</span>
+                    <span class="category-tag">AI</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+
+        <!-- Machine Learning Article -->
+        <div class="blog-card" data-article="machine-learning">
+            <div class="blog-card-header">
+                <h2>Machine Learning Insights</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Explore breakthrough machine learning techniques and their practical applications in real-world software development scenarios.</p>
+                <div class="category-tags">
+                    <span class="category-tag">Machine Learning</span>
+                    <span class="category-tag">Development</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+
+        <!-- Cloud Computing Article -->
+        <div class="blog-card" data-article="cloud-computing">
+            <div class="blog-card-header">
+                <h2>Cloud Computing Evolution</h2>
+            </div>
+            <div class="blog-card-content">
+                <p>Dive into the latest trends in cloud computing, exploring innovative technologies and strategies for scalable infrastructure.</p>
+                <div class="category-tags">
+                    <span class="category-tag">Cloud</span>
+                    <span class="category-tag">Infrastructure</span>
+                </div>
+                <button class="read-more-btn">
+                    <i class="fas fa-book-reader"></i> Read More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Article Content -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="articleContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Article content database
+        const articleContent = {
+            'ai-debugging': {
+                title: 'AI Debugging Techniques: Revolutionizing Code Quality',
+                content: `
+                    <h2>AI Debugging: The Future of Software Development</h2>
+                    <p>Artificial Intelligence is transforming the way developers approach debugging, offering unprecedented insights and solutions to complex coding challenges.</p>
+                    
+                    <h3>Key Advantages of AI-Powered Debugging</h3>
+                    <ul>
+                        <li><strong>Automated Error Detection:</strong> AI algorithms can identify potential bugs and vulnerabilities before they become critical issues.</li>
+                        <li><strong>Predictive Analysis:</strong> Machine learning models predict potential failure points in code based on historical data.</li>
+                        <li><strong>Efficient Troubleshooting:</strong> Reduce debugging time by up to 60% with intelligent code analysis.</li>
+                    </ul>
+
+                    <h3>How AI Debugging Works</h3>
+                    <p>Modern AI debugging tools leverage machine learning algorithms to:</p>
+                    <ol>
+                        <li>Analyze code structure and patterns</li>
+                        <li>Compare against vast databases of known issues</li>
+                        <li>Provide context-aware suggestions for code improvement</li>
+                    </ol>
+
+                    <h3>Real-World Applications</h3>
+                    <p>Companies like Google, Microsoft, and Facebook are already implementing AI-driven debugging tools to enhance their software development processes, reducing time-to-market and improving overall code quality.</p>
+                `
+            },
+            'code-analysis': {
+                title: 'Advanced Code Analysis: Leveraging Machine Learning',
+                content: `
+                    <h2>The Power of Intelligent Code Analysis</h2>
+                    <p>Code analysis has evolved from manual review to sophisticated machine learning-powered systems that provide deep insights into software quality, performance, and potential improvements.</p>
+                    
+                    <h3>Machine Learning in Code Analysis</h3>
+                    <ul>
+                        <li><strong>Pattern Recognition:</strong> Identify complex code patterns and potential architectural issues</li>
+                        <li><strong>Performance Optimization:</strong> Suggest code refactoring for improved efficiency</li>
+                        <li><strong>Security Vulnerability Detection:</strong> Automatically identify potential security risks</li>
+                    </ul>
+
+                    <h3>Techniques Used in Advanced Code Analysis</h3>
+                    <ol>
+                        <li>Natural Language Processing (NLP) for code understanding</li>
+                        <li>Deep learning models for pattern recognition</li>
+                        <li>Statistical analysis of code repositories</li>
+                    </ol>
+
+                    <h3>Benefits for Developers</h3>
+                    <p>By implementing advanced code analysis techniques, developers can:</p>
+                    <ul>
+                        <li>Reduce technical debt</li>
+                        <li>Improve code maintainability</li>
+                        <li>Enhance overall software quality</li>
+                    </ul>
+                `
+            },
+            'software-engineering': {
+                title: 'The Future of Software Engineering with AI',
+                content: `
+                    <h2>AI: Transforming Software Development Paradigms</h2>
+                    <p>Artificial Intelligence is not just a tool but a revolutionary force reshaping how we conceptualize, design, and implement software solutions.</p>
+                    
+                    <h3>AI-Driven Software Engineering Innovations</h3>
+                    <ul>
+                        <li><strong>Automated Code Generation:</strong> AI tools that can write functional code based on project requirements</li>
+                        <li><strong>Intelligent Project Management:</strong> Predictive scheduling and resource allocation</li>
+                        <li><strong>Continuous Learning and Improvement:</strong> Systems that adapt and evolve with each project</li>
+                    </ul>
+
+                    <h3>Emerging Technologies</h3>
+                    <ol>
+                        <li>GPT-powered code completion</li>
+                        <li>AI-driven architecture design</li>
+                        <li>Automated testing and quality assurance</li>
+                    </ol>
+
+                    <h3>Preparing for an AI-Driven Future</h3>
+                    <p>Software engineers must adapt by:</p>
+                    <ul>
+                        <li>Developing AI literacy</li>
+                        <li>Embracing continuous learning</li>
+                        <li>Understanding AI's potential and limitations</li>
+                    </ul>
+                `
+            },
+            // Add other article contents (cybersecurity, machine-learning, cloud-computing)
+            'cybersecurity': {
+                title: 'AI in Cybersecurity: Intelligent Threat Detection',
+                content: `
+                    <h2>Revolutionizing Cybersecurity with Artificial Intelligence</h2>
+                    <p>AI is transforming cybersecurity by providing advanced threat detection, predictive analysis, and rapid response mechanisms.</p>
+                    
+                    <h3>Key AI Cybersecurity Applications</h3>
+                    <ul>
+                        <li><strong>Threat Detection:</strong> Real-time identification of potential security breaches</li>
+                        <li><strong>Predictive Security:</strong> Anticipating and preventing potential cyber attacks</li>
+                        <li><strong>Automated Response:</strong> Instant mitigation of security threats</li>
+                    </ul>
+                `
+            },
+            'machine-learning': {
+                title: 'Machine Learning Insights: Transforming Software Development',
+                content: `
+                    <h2>Machine Learning: Revolutionizing Software Development</h2>
+                    <p>Machine learning is rapidly changing the landscape of software development, offering unprecedented capabilities for intelligent problem-solving and innovation.</p>
+                    
+                    <h3>Breakthrough Machine Learning Techniques</h3>
+                    <ul>
+                        <li><strong>Predictive Coding:</strong> AI models that can predict and auto-complete code segments</li>
+                        <li><strong>Intelligent Bug Detection:</strong> Machine learning algorithms that identify potential code issues before deployment</li>
+                        <li><strong>Automated Code Optimization:</strong> Systems that can suggest performance improvements automatically</li>
+                    </ul>
+
+                    <h3>Practical Applications in Software Development</h3>
+                    <ol>
+                        <li>Automated Code Review Processes</li>
+                        <li>Intelligent Software Testing</li>
+                        <li>Personalized Development Environment Optimization</li>
+                    </ol>
+
+                    <h3>Real-World Impact</h3>
+                    <p>Companies are leveraging machine learning to:</p>
+                    <ul>
+                        <li>Reduce development time</li>
+                        <li>Improve code quality</li>
+                        <li>Create more intelligent and adaptive software systems</li>
+                    </ul>
+
+                    <h3>Emerging Trends</h3>
+                    <p>Machine learning is pushing the boundaries of what's possible in software development, from intelligent code generation to predictive system design.</p>
+                `
+            },
+            'cloud-computing': {
+                title: 'Cloud Computing Evolution: Scalable Infrastructure Strategies',
+                content: `
+                    <h2>The Transformative Power of Cloud Computing</h2>
+                    <p>Cloud computing has revolutionized how businesses design, deploy, and manage their technological infrastructure, offering unprecedented scalability and flexibility.</p>
+                    
+                    <h3>Key Cloud Computing Innovations</h3>
+                    <ul>
+                        <li><strong>Serverless Architecture:</strong> Eliminating infrastructure management complexities</li>
+                        <li><strong>Hybrid Cloud Solutions:</strong> Seamless integration of public and private cloud environments</li>
+                        <li><strong>Edge Computing:</strong> Bringing computational power closer to data sources</li>
+                    </ul>
+
+                    <h3>Strategic Infrastructure Approaches</h3>
+                    <ol>
+                        <li>Multi-Cloud Deployment Strategies</li>
+                        <li>Containerization and Kubernetes</li>
+                        <li>Advanced Scalability Techniques</li>
+                    </ol>
+
+                    <h3>Business Benefits</h3>
+                    <p>Organizations can achieve:</p>
+                    <ul>
+                        <li>Reduced operational costs</li>
+                        <li>Enhanced global accessibility</li>
+                        <li>Improved system resilience</li>
+                        <li>Rapid scalability</li>
+                    </ul>
+
+                    <h3>Future of Cloud Infrastructure</h3>
+                    <p>The future of cloud computing lies in intelligent, self-optimizing systems that can dynamically adapt to changing business needs and technological landscapes.</p>
+                `
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('articleModal');
+        const modalContent = document.getElementById('articleContent');
+        const closeBtn = document.querySelector('.close-btn');
+
+        // Add event listeners to read more buttons
+        document.querySelectorAll('.read-more-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const articleId = this.closest('.blog-card').getAttribute('data-article');
+                const article = articleContent[articleId];
+                
+                if (article) {
+                    modalContent.innerHTML = article.content;
+                    modal.style.display = 'block';
+                }
+            });
+        });
+
+        // Close modal when close button is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
